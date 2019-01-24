@@ -1,1 +1,15 @@
 
+#!/bin/bash
+
+cd  /app/tomcat/logs/
+date=`date +%Y%m%d`
+date30=`date -d'30 day ago' +%Y%m%d`
+
+cp catalina.out catalina.out.${date}
+echo "" > catalina.out 
+rm -rf catalina.out.${date30}
+
+#定时任务
+#########
+0 0 * * * /bin/sh /usr/local/script/tomcat_cut_del.sh
+#########
