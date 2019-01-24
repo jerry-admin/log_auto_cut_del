@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 rq=`date +%Y%m%d --date="-1 day"`
 log_dir=/data/nginx/logs
 pid_dir=/data/nginx/logs
