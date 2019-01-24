@@ -1,0 +1,19 @@
+#! /bin/sh
+rq=`date +%Y%m%d --date="-1 day"`
+log_dir=/data/nginx/logs
+pid_dir=/data/nginx/logs
+acc_log=access.log
+err_log=error.log
+
+cd $log_dir
+mv $acc_log $acc_log-$rq
+mv $err_log $err_log-$rq
+kill -USR1 $(cat $pid_dir/nginx.pid)
+
+#删除30天前的日志。
+find $log_dir -mtime +30 -type f -name '*.log'|xargs rm -f
+
+#定时任务
+##########
+0 0 * * * /bin/sh /usr/local/script/nginx_cut_del.sh
+##########
