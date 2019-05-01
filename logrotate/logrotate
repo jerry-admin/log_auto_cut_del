@@ -1,1 +1,42 @@
 
+1、简介
+The logrotate utility is designed to simplify the administration of log files on a system which generates a lot of log files. 
+Logrotate allows for the automatic rotation compression, removal and mailing of log files. 
+Logrotate can be set to handle a log file daily, weekly, monthly or when the log file gets to a certain size.
+2、默认centos系统安装自带logrotate
+安装：yum -y install logrotate
+配置文件：
+/etc/logrotate.conf
+/etc/logrotate.d/
+
+配置文件参数说明
+详见：man logrotate
+monthly
+日志文件将按月轮循。其它可用值为'daily'，'weekly'或者'yearly'。
+
+rotate 5
+一次将存储5个归档日志。对于第六个归档，时间最久的归档将被删除。
+
+compress
+在轮循任务完成后，已轮循的归档将使用gzip进行压缩。
+
+delaycompress
+总是与compress选项一起用，delaycompress选项指示logrotate不要将最近的归档压缩，压缩将在下一次轮循周期进行。这在你或任何软件仍然需要读取最新归档时很有用。
+
+missingok
+在日志轮循期间，任何错误将被忽略，例如“文件无法找到”之类的错误。
+
+notifempty
+如果日志文件为空，轮循不会进行。
+
+dateext
+切换后的日志文件会附加上一个短横线和YYYYMMDD格式的日期，没有这个配置项会附加一个小数点加一个数字序号
+
+sharedscripts
+在所有其它指令完成后，postrotate和endscript里面指定的命令将被执行。在这种情况下，rsyslogd 进程将立即再次读取其配置并继续运行。
+
+create 644 root root
+以指定的权限创建全新的日志文件，同时logrotate也会重命名原始日志文件。
+
+postrotate/endscript
+在所有其它指令完成后，postrotate和endscript里面指定的命令将被执行。在这种情况下，rsyslogd 进程将立即再次读取其配置并继续运行。
