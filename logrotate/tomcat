@@ -1,1 +1,26 @@
+1、设置tomcatpid位置
+vim  catalina.sh
+# Get standard environment variables
+PRGDIR=`dirname "$PRG"`
+CATALINA_PID=/var/run/tomcat.pid
+2、编辑vim /etc/logrotate.d/tomcat
+/app/tomcat/logs/catalina.out {
+        daily
+        rotate 15
+        missingok
+        notifempty
+        dateext
+        compress
+        delaycompress
+        sharedscripts
+        create 644 root root
+        postrotate
+                if [ -f /var/run/tomcat.pid ]; then
+                        kill -USR1 `cat /var/run/tomcat.pid`
+                fi
+        endscript
+}
 
+3、设置logrotate定时任务
+ crontab -e
+00 00 * * * /usr/sbin/logrotate -vf /etc/logrotate.d/tomcat &>/dev/null
