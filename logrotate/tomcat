@@ -21,6 +21,10 @@ CATALINA_PID=/var/run/tomcat.pid
         endscript
 }
 
-3、设置logrotate定时任务
- crontab -e
-00 00 * * * /usr/sbin/logrotate -vf /etc/logrotate.d/tomcat &>/dev/null
+
+
+如何起作用
+每天晚上，cron daemon会自动执行/etc/cron.daily目录下的任务
+这个会触发/etc/cron.daily/logrotate文件，logrotate一般是随linux按安装的。它会执行这个命令-“/etc/sbin/logrotate /etc/logrotate.conf”
+/etc/logrotate.conf 包含了/etc/logrotate.d目录下的所有脚本
+这个会触发上一步你写的/etc/logrotate.d/tomcate文件
