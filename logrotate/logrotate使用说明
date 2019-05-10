@@ -9,7 +9,14 @@ Logrotate can be set to handle a log file daily, weekly, monthly or when the log
 /etc/logrotate.conf
 /etc/logrotate.d/
 
-配置文件参数说明
+如何起作用
+每天晚上，cron daemon会自动执行/etc/cron.daily目录下的任务
+这个会触发/etc/cron.daily/logrotate文件，logrotate一般是随linux按安装的。
+它会执行这个命令-“/etc/sbin/logrotate /etc/logrotate.conf”
+/etc/logrotate.conf 包含了/etc/logrotate.d目录下的所有脚本
+这个会触发上一步你写的/etc/logrotate.d/tomcate文件
+
+3、配置文件参数说明
 详见：man logrotate
 monthly
 日志文件将按月轮循。其它可用值为'daily'，'weekly'或者'yearly'。
